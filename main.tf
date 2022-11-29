@@ -9,18 +9,18 @@ terraform {
 
 provider "aws" {
   profile = "default"
-  region  = "ap-south-1"
+  region  = "us-east-2"
 }
 
 
 #S3 Bucket on Which we will add policy
-resource "aws_s3_bucket" "demo-bucket"{
-  bucket = "ck-demo-bucket-04th"
+resource "aws_s3_bucket" "efuse-bucket"{
+  bucket = "ck-efuse-bucket"
 }
 
 #Resource to add bucket policy to a bucket 
 resource "aws_s3_bucket_policy" "public_read_access" {
-  bucket = aws_s3_bucket.demo-bucket.id
+  bucket = aws_s3_bucket.efuse-bucket.id
   policy = data.aws_iam_policy_document.public_read_access.json
 }
 
@@ -40,8 +40,8 @@ data "aws_iam_policy_document" "public_read_access" {
     ]
 
     resources = [
-      aws_s3_bucket.demo-bucket.arn,
-      "${aws_s3_bucket.demo-bucket.arn}/*",
+      aws_s3_bucket.efuse-bucket.arn,
+      "${aws_s3_bucket.efuse-bucket.arn}/*",
     ]
   }
 }
